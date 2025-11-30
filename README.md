@@ -1,8 +1,6 @@
-<style>
-body {
-    font-size: 10px;
-}
-</style>
+<div style="font-size:10px">
+
+
 
 # Digital Image Processing Studio — README
 
@@ -22,28 +20,24 @@ The application offers:
 
 ## 2. UI Map
 
-Add your own UI image here:
 
-```
 ![UI Map](ui_map.png)
-```
+
 
 ### **A — Control Panel**
-Contains essential application controls such as **Open**, **Save**, **Reset**, and **Undo**.
+This panel, located beneath the title bar, houses the core file management and application state controls. It provides quick access to essential functions, including Open Image, Save Image, and interface controls such as Reset and Undo.
 
 ### **B — Operations Panel**
-Displays available operations under the selected category and provides parameter input fields for each operation.
+Serving as the dynamic control center, this panel lists the specific operations (e.g., Contrast Stretch, Negative, and Gamma) available under the category currently selected in the E panel. Crucially, this area also enables the user to adjust the parameters or set the value for the chosen operation, providing granular control over the processing intensity.
 
 ### **C — Image Display Area**
-Shows the **Original Image** and **Processed Image** side by side.  
-The processed image updates immediately after each applied transformation.
+This critical section is dedicated to visualization and comparison. It simultaneously displays the Original Image and the Processed Image. A key feature is its real-time feedback: the Processed Image is dynamically updated immediately after every operation, allowing the user to instantly assess the visual outcome of the applied filter or transformation.
 
 ### **D — Histogram Panel**
-Displays grayscale and Matplotlib histograms.  
-Supports histogram visualization before and after processing.
+Positioned at the bottom of the interface, this area provides analytical tools, specifically the Grayscale and Matplotlib histograms. These tools are essential for visualizing the numerical effects of the applied image processing operations on the image's pixel distribution.
 
 ### **E — Categories Sidebar**
-Navigation menu organizing algorithms into logical categories: **Basics**, **Intensity**, **Spatial Filters**, **Histogram**, and **Morphology**.
+This is the primary navigation menu on the left side of the application. It allows the user to select the desired algorithms and filters, organizing them into logical categories like Basics, Intensity, Histogram, and Morphological.
 
 ---
 
@@ -114,19 +108,26 @@ Navigation menu organizing algorithms into logical categories: **Basics**, **Int
 ## 5. Known Limitations
 
 ### **Performance & Memory**
-- Processing very high-resolution images (e.g., 4000×4000 px or larger)  
-  may cause latency or increased memory usage.
-- Large spatial filters (e.g., Gaussian 9×9, Median 7×7) can temporarily freeze the UI.
+- Processing very high-resolution images (e.g., 4000×4000 px or larger) may cause latency or increased memory usage.  
+- Large spatial filters (e.g., Gaussian 9×9, Median 7×7) can temporarily freeze the UI during computation.
 
 ### **Real-Time Update Lag**
-- Some operations—especially median filtering and large-kernel convolutions—may introduce momentary delays before updating the processed image.
+Although the application is designed for real-time feedback, computationally heavy operations (such as large Gaussian or Median kernels, e.g., 15×15) may cause short UI freezes before the processed image updates.
 
 ### **Affine Transform Responsiveness**
-- Continuous updates during shear or custom-angle rotation may cause short UI freezes due to intensive pixel interpolation computations.
+Continuous updates during complex affine transformations (e.g., Shear or custom-angle Rotation) may lead to temporary UI unresponsiveness.  
+This is due to the high computational cost of real-time pixel interpolation.
 
 ### **Design Constraints**
-- Some filters (e.g., median) internally convert the input to grayscale for stability and performance.
-- This is an intentional optimization, not a limitation.
+- Some operations (e.g., **median filtering**) internally convert the image to grayscale to ensure stable, optimal, and consistent intensity-based processing.
+- This behavior is intentional and implemented for performance and algorithmic correctness.
 
----
+### **Kernel Size Restriction**
+Spatial filters require a minimum kernel size of **3×3**.  
+1×1 kernels behave as identity operations, and 2×2 kernels lack a well-defined center, often leading to non-standard or unstable behavior.
+
+### **Internal Grayscale Processing**
+Certain filters rely on single-channel intensity calculations; therefore, they automatically process images in grayscale internally to maintain performance, stability, and consistent results.
+
+</div>
 
