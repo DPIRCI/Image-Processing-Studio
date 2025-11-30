@@ -1,9 +1,20 @@
-<div style="font-size:10px">
+# Image Processing Application README
 
+**Student ID:** 24070001119
 
+**Name:** Doğa Pirci
 
-# Digital Image Processing Studio — README
+## Table of Contents
 
+1. [Introduction / App Overview](#introduction)
+2. [UI Map](#app-overview--ui-map)
+    * 2.1. [Application Overview](#application-overview)
+    * 2.2. [User Interface (UI) Map](#user-interface-ui-map)
+3. [Implemented Features (Checklist)](#implemented-features-checklist)
+4. [Short Notes on Key Parameters](#short-notes-on-key-parameters)
+5. [Known Limitations](#known-limitations)
+
+---
 ## 1. Introduction / App Overview
 Digital Image Processing Studio is a desktop application developed as part of the COMP 4360 Image Processing midterm assignment.  
 The goal of this tool is to provide an interactive, user-friendly environment for applying a variety of image processing algorithms in real time.
@@ -128,6 +139,9 @@ Spatial filters require a minimum kernel size of **3×3**.
 
 ### **Internal Grayscale Processing**
 Certain filters rely on single-channel intensity calculations; therefore, they automatically process images in grayscale internally to maintain performance, stability, and consistent results.
+
+### 6.References
+[Colab Notebook](https://colab.research.google.com/drive/1eS4952_xnsUxy9tm0MpUv-QJKgmmn6v2?usp=sharing#scrollTo=bRgjfHweFTX9)
 
 </div>
 
