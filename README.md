@@ -43,7 +43,7 @@ The **Digital Image Processing Studio** is a desktop application designed to pro
 A key feature of the application is the **real-time comparison** between the **Original Image** and the **Processed Image**, allowing immediate feedback on the impact of applied parameters. Furthermore, the integrated **Histogram Analysis** provides numerical insight into the pixel intensity distribution after processing.
 
 ### 2. User Interface (UI) Map
-![Figure 1: Application UI Map](ui_map.png)
+![Figure 1: Application UI Map](Ekran görüntüsü 2025-11-30 172352.png)
 The main application window is structured into five primary functional areas, which are denoted by the labels **A** through **E** in Figure 1.
 
 
