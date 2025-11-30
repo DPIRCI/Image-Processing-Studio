@@ -120,6 +120,40 @@ This section confirms the successful implementation of all Minimum Feature Set r
 
 ---
 
+# ⚠️ Known Limitations
+
+This section outlines known functional and performance limitations of the Digital Image Processing Studio application, primarily due to implementation constraints and design choices made to prioritize core functionality.
+
+## 1. Performance and Memory Constraints
+* **Large Image Processing:** The application currently processes all images on the main thread and holds a significant undo history. Processing **high-resolution images (e.g., $>4000 \times 3000$ pixels)** may lead to noticeable **latency** or **out-of-memory** issues, especially when applying iterative spatial filters.
+* **Real-time Update Lag:** While designed for real-time feedback, complex filters (like large Gaussian or Median kernels, e.g., $15 \times 15$) may cause temporary freezing of the UI during computation before the processed image (UI Label C) updates.
+
+## 2. Feature Implementation Limitations
+* **Kernel Size Restriction:** Spatial filters (Mean, Gaussian, Median) are currently restricted to use only **odd-numbered kernel sizes** (e.g., $3 \times 3$, $5 \times 5$, $7 \times 7$). Even-sized kernels were intentionally excluded to simplify **boundary handling** and **centering** of the filter mask over the pixel.
+* **Default Kernel Start:** For performance testing consistency, all spatial filters (Section D) default to a minimum kernel size of $\mathbf{3 \times 3}$. Smaller $1 \times 1$ kernel operations are excluded as they represent the identity operation and offer no practical filtering value.
+* **Color Space:** The application primarily focuses on **Grayscale processing** for filtering and histogram analysis (Section D & E). While color images are supported for I/O, many advanced filters are applied independently to R, G, and B channels, which might not always yield optimal results compared to processing in a perceptually uniform color space (like L\*a\*b\* or HSV).
+
+---
+
+# ⚙️ Short Notes on Key Parameters
+
+This section provides brief explanations and rationale for the chosen parameters in the implemented image processing functions.
+
+| Operation / Feature | Key Parameter | Value Range & Rationale |
+| :--- | :--- | :--- |
+| **Spatial Filtering** (Mean, Gaussian, Median) | **Kernel Size ($N \times N$)** | **Range:** $3, 5, 7, \dots$ (Odd integers only). |
+| | | **Note:** The size of the kernel directly dictates the **degree of smoothing** or **noise reduction**. A larger kernel size means greater averaging/median calculation over a larger neighborhood, resulting in more significant smoothing but also **greater blurring** of fine details and edges. The minimum $3 \times 3$ is chosen as the smallest neighborhood that provides meaningful filtering. |
+| **Intensity Transformation** | **Gamma ($\gamma$)** | **Range:** Typically $0.1$ to $5.0$. |
+| | | **Note:** Gamma Correction ($\mathbf{s = c \cdot r^\gamma}$) is used to non-linearly adjust image brightness and contrast. |
+| | | * **$\gamma < 1.0$ (e.g., 0.5):** Increases overall brightness, enhancing details in **shadows** (dark areas). |
+| | | * **$\gamma > 1.0$ (e.g., 2.0):** Decreases overall brightness, enhancing details in **highlights** (bright areas). |
+| **Intensity Transformation** | **Contrast Stretch** ($r_{\min}$, $r_{\max}$) | **Range:** $0$ to $255$. |
+| | | **Note:** This linear stretch maps the current pixel range ($\mathbf{[r_{\min}, r_{\max}]}$) to the full output range $[0, 255]$. The choice of $r_{\min}$ and $r_{\max}$ is critical: if set too close to the image's actual minimum/maximum intensity, it may **clip** (saturate) pixels, losing information. |
+| **Edge Detection** | **Sobel Filter** | **Kernel:** $\mathbf{3 \times 3}$. |
+| | | **Note:** Sobel uses two $3 \times 3$ kernels ($G_x$ and $G_y$) to approximate the image gradient in the horizontal and vertical directions. The $\mathbf{3 \times 3}$ size is standard because it provides a good balance between **noise suppression** and **edge localization** accuracy. Larger kernels (e.g., $5 \times 5$) would blur the image too much before detecting the edge, leading to thicker, less precise edges. |
+| **Morphology** | **Structuring Element Size** | **Range:** User-definable odd size, usually $3 \times 3$ or $5 \times 5$. |
+| | | **Note:** The size of the structuring element (kernel) determines the **extent of morphological effect**. Larger elements cause more severe erosion or dilation, which is useful for removing larger noise components (Erosion) or filling bigger holes/gaps (Dilation). |
+---
 ## References
 
 *(List your references here.)*
